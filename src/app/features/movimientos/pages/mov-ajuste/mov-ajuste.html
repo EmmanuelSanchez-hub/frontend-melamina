@@ -1,0 +1,105 @@
+<section class="mov-form" *ngIf="api.can('ajustes_write'); else sinPermiso">
+
+  <!-- ENCABEZADO -->
+  <header class="header">
+    <div class="titulo">
+      <span class="material-icons icono">tune</span>
+      <div>
+        <h2>Ajuste de Inventario</h2>
+        <p class="subtitulo">Corrección manual de stock: entrada o salida.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- CARD DEL FORMULARIO -->
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="card form-card">
+
+    <!-- BLOQUE PRODUCTO -->
+    <div class="bloque">
+      <h3 class="bloque-titulo">Producto</h3>
+
+      <div class="form-group">
+        <label>Buscar producto</label>
+        <div class="input-icon">
+          <span class="material-icons">search</span>
+          <input
+            type="text"
+            placeholder="Buscar por nombre o código…"
+            [formControl]="buscarProducto"
+          />
+        </div>
+
+        <ul class="resultados" *ngIf="productos.length > 0">
+          <li *ngFor="let p of productos" (click)="seleccionarProducto(p)">
+            <strong>{{ p.codigo }}</strong> — {{ p.nombre }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BLOQUE AJUSTE -->
+    <div class="bloque">
+      <h3 class="bloque-titulo">Datos del Ajuste</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tipo de Ajuste</label>
+          <div class="input-icon">
+            <span class="material-icons">swap_vert</span>
+            <select formControlName="tipo">
+              <option value="ENTRADA">Entrada (sumar stock)</option>
+              <option value="SALIDA">Salida (restar stock)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Cantidad</label>
+          <div class="input-icon">
+            <span class="material-icons">countertops</span>
+            <input type="number" formControlName="cantidad" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Motivo</label>
+        <div class="input-icon">
+          <span class="material-icons">edit_note</span>
+          <input type="text" formControlName="motivo" />
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label>Observaciones</label>
+        <textarea rows="3" formControlName="observaciones"></textarea>
+      </div>
+    </div>
+
+    <!-- ACCIONES -->
+    <div class="acciones">
+      <button type="button" class="btn btn-secundario" routerLink="/movimientos">
+        <span class="material-icons">arrow_back</span>
+        Volver
+      </button>
+
+      <button
+        type="submit"
+        class="btn btn-primario"
+        [disabled]="form.invalid"
+        *ngIf="api.can('ajustes_write')"
+      >
+        <span class="material-icons">save</span>
+        Guardar Ajuste
+      </button>
+    </div>
+
+  </form>
+
+</section>
+
+<ng-template #sinPermiso>
+  <div class="sin-permiso">
+    <h2>No tienes permiso para registrar ajustes.</h2>
+  </div>
+</ng-template>

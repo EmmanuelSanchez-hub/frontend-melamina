@@ -1,0 +1,206 @@
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { Cliente, Producto } from '../../../../core/interfaces/interfaces';
+import { MovimientosService } from '../../services/movimientos.service';
+import { Product } from '../../../products/services/product.service';
+import { ClienteService } from '../../../clientes/services/cliente.service';
+import { catchError, debounceTime, forkJoin, of, switchMap } from 'rxjs';
+import { ApiService } from '../../../../core/services/api.service';
+
+@Component({
+  selector: 'app-mov-salida',
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  templateUrl: './mov-salida.html',
+  styleUrl: './mov-salida.scss',
+})
+export class MovSalida implements OnInit {
+
+  buscarCliente = new FormControl('');
+  buscarProducto = new FormControl('');
+
+  clientes: Cliente[] = [];
+  productos: Producto[] = [];
+
+  clienteSeleccionado: Cliente | null = null;
+
+  carrito: {
+    productoId: number;
+    nombre: string;
+    precioUnitario: number;
+    cantidad: number;
+    subtotal: number;
+  }[] = [];
+
+  form = new FormGroup({
+    pago: new FormControl<number | null>(null, {
+      validators: [Validators.min(0)]
+    }),
+    observaciones: new FormControl<string>('', { nonNullable: true }),
+  });
+
+  totalVenta = 0;
+  vuelto = 0;
+
+  constructor(
+    private clientesService: ClienteService,
+    private productosService: Product,
+    private movService: MovimientosService,
+    private router: Router,
+    public api: ApiService
+  ) { }
+
+  ngOnInit(): void {
+
+    this.buscarCliente.valueChanges
+      .pipe(
+        debounceTime(300),
+        switchMap(txt => {
+          if (!txt) {
+            this.clientes = [];
+            return of(null);
+          }
+
+          const len = txt.trim().length;
+
+          // Longitudes válidas: DNI (8) o RUC (11)
+          if (len === 8 || len === 11) {
+            return this.clientesService.buscarPorDocumento(txt).pipe(
+              catchError(() => {
+                this.clientes = [];
+                return of(null); // evita que el stream muera
+              })
+            );
+          }
+
+          // Mientras escribe: limpiar resultados
+          this.clientes = [];
+          return of(null);
+        })
+      )
+      .subscribe(cliente => {
+        this.clientes = cliente ? [cliente] : [];
+      });
+
+
+
+
+    // Buscar producto en tiempo real
+    this.buscarProducto.valueChanges
+      .pipe(
+        debounceTime(300),
+        switchMap(txt => this.productosService.buscar(txt || ''))
+      )
+      .subscribe(res => this.productos = res);
+
+    this.form.get('pago')?.valueChanges.subscribe(valor => {
+      const pago = Number(valor) || 0;
+      this.vuelto = pago - this.totalVenta;
+    });
+
+  }
+
+  seleccionarCliente(c: Cliente) {
+    this.clienteSeleccionado = c;
+    this.buscarCliente.setValue(`${c.nombres} ${c.apellidos}`, { emitEvent: false });
+    this.clientes = [];
+  }
+
+  seleccionarProducto(p: Producto) {
+    this.buscarProducto.setValue('', { emitEvent: false });
+    this.productos = [];
+
+    const item = {
+      productoId: p.id,
+      nombre: p.nombre,
+      precioUnitario: p.precioVenta,
+      cantidad: 1,
+      subtotal: p.precioVenta
+    };
+
+    this.carrito.push(item);
+    this.recalcularTotal();
+  }
+
+  cambiarCantidad(item: any, nuevaCantidad: number) {
+
+    if (!nuevaCantidad || isNaN(nuevaCantidad) || nuevaCantidad <= 0) {
+      item.cantidad = 0; // deja inválido para que HTML muestre error
+      item.subtotal = 0;
+      this.recalcularTotal();
+      return;
+    }
+
+    item.cantidad = nuevaCantidad;
+    item.subtotal = item.precioUnitario * item.cantidad;
+
+    this.recalcularTotal();
+  }
+
+  verificarCantidad(item: any) {
+    if (item.cantidad <= 0) {
+      item.cantidad = 1;
+      item.subtotal = item.precioUnitario;
+      this.recalcularTotal();
+    }
+  }
+
+  eliminarItem(i: number) {
+    this.carrito.splice(i, 1);
+    this.recalcularTotal();
+  }
+
+  recalcularTotal() {
+    this.totalVenta = this.carrito.reduce((acc, item) => acc + item.subtotal, 0);
+
+    const pago = this.form.get('pago')?.value || 0;
+    this.vuelto = pago - this.totalVenta;
+  }
+
+  guardar() {
+    if (!this.clienteSeleccionado) return;
+
+    if (this.carrito.length === 0) {
+      alert("Debe agregar al menos un producto.");
+      return;
+    }
+
+    // Validación final de cantidades
+    for (let item of this.carrito) {
+      if (item.cantidad <= 0) {
+        alert(`La cantidad del producto ${item.nombre} debe ser mayor a 0.`);
+        return;
+      }
+    }
+
+    // Validación de pago
+    const pago = this.form.get('pago')?.value || 0;
+    if (pago < this.totalVenta) {
+      alert("El pago no puede ser menor al total de la venta.");
+      return;
+    }
+
+    const usuarioId = JSON.parse(localStorage.getItem('user')!).id;
+
+
+    const detalle = this.carrito.map(item => ({
+      tipoMovimiento: 'SALIDA',
+      productoId: item.productoId,
+      cantidad: item.cantidad,
+      precioUnitario: item.precioUnitario,
+      clienteId: this.clienteSeleccionado!.id,
+      observaciones: this.form.value.observaciones,
+      usuarioId
+    }));
+
+    // Enviar al backend
+    forkJoin(
+      detalle.map(item => this.movService.registrarSalida(item))
+    ).subscribe({
+      next: () => this.router.navigate(['/movimientos']),
+      error: () => alert('Error al registrar la venta.')
+    });
+
+  }
+}
