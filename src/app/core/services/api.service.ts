@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Categoria } from '../interfaces/interfaces';
+import { Categoria, Producto } from '../interfaces/interfaces';
 import { Auth } from '../auth/services/auth';
 
 type Role = 'ROLE_ADMIN' | 'ROLE_VENDEDOR' | 'ROLE_ALMACENERO';
@@ -104,7 +104,11 @@ export class ApiService {
   }
 
   getCategorias(): Observable<Categoria[]> {
-    if (!this.can('productos_read')) { return of([]); }
-    return this.http.get<any[]>(`${this.api}/categorias`);
+    return this.http.get<any[]>(`${this.api}/categorias/activas`);
   }
+
+  getProductos(): Observable<Producto[]> {
+    return this.http.get<any[]>(`${this.api}/productos/public/activos`);
+  }
+
 }

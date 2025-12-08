@@ -113,13 +113,13 @@ export class UserForm {
 
     if (this.editMode) {
       this.userService.update(this.usuarioId, data).subscribe({
-        next: () => this.router.navigate(['/usuarios']),
+        next: () => this.router.navigate(['/app/usuarios']),
         error: (err) => console.error('Error al actualizar usuario:', err),
       });
     } else {
       // crear usuario → incluye password
       this.userService.create(data).subscribe({
-        next: () => this.router.navigate(['/usuarios']),
+        next: () => this.router.navigate(['/app/usuarios']),
         error: (err) => console.error('Error al crear usuario:', err),
       });
     }

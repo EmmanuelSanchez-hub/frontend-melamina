@@ -104,7 +104,7 @@ export class MovEntrada implements OnInit {
     };
 
     this.movimientosService.registrarEntrada(payload)
-      .subscribe(() => this.router.navigate(['/movimientos']));
+      .subscribe(() => this.router.navigate(['/app/movimientos']));
   }
 
 }

@@ -82,6 +82,6 @@ export class MovAjuste implements OnInit {
     };
 
     this.movimientosService.registrarAjuste(payload)
-      .subscribe(() => this.router.navigate(['/movimientos']));
+      .subscribe(() => this.router.navigate(['/app/movimientos']));
   }
 }

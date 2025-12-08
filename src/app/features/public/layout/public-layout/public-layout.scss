@@ -1,0 +1,83 @@
+/* ============================================
+   LAYOUT PÚBLICO GENERAL
+   ============================================ */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #0d1f2e;
+  overflow: hidden;
+}
+
+/* ============================================
+   CONTENIDO CENTRO
+   ============================================ */
+
+.public-content {
+  flex: 1;
+  padding-top: 60px;
+  padding-bottom: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00c2e8, #48e0ff);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 194, 232, 0.5);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #48e0ff, #00c2e8);
+    box-shadow: 0 0 14px rgba(0, 194, 232, 0.75);
+  }
+
+  @media (max-width: 1024px) {
+    padding-top: 110px;
+    padding-bottom: 130px;
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 100px;
+    padding-bottom: 120px;
+  }
+
+  @media (max-width: 480px) {
+    padding-top: 90px;
+    padding-bottom: 110px;
+  }
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+app-header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+app-footer {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}

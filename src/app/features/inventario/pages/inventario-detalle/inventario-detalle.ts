@@ -73,7 +73,7 @@ export class InventarioDetalle implements OnInit{
           this.editandoUbicacion = false;
           // recargar vista
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['inventario/detalle', item.id]);
+            this.router.navigate(['/app/inventario/detalle', item.id]);
           });
         },
         error: () => alert('No se pudo actualizar la ubicación.')
@@ -95,10 +95,10 @@ export class InventarioDetalle implements OnInit{
     }
     const confirmar = confirm(`¿Desea ajustar el stock de "${item.nombreProducto}"?`);
     if (!confirmar) return;
-    this.router.navigate(['inventario/ajuste', item.id]);
+    this.router.navigate(['/app/inventario/ajuste', item.id]);
   }
 
   volver() {
-    this.router.navigate(['inventario']);
+    this.router.navigate(['/app/inventario']);
   }
 }

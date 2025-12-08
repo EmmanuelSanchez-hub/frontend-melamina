@@ -89,7 +89,7 @@ export class InventarioAjuste implements OnInit {
     this.inventarioService.ajustarStock(this.inventario.productoId, nuevaCantidad).subscribe({
       next: () => {
         this.mensaje = 'Stock ajustado correctamente.';
-        this.router.navigate(['inventario/detalle', this.inventario.id]);
+        this.router.navigate(['/app/inventario/detalle', this.inventario.id]);
       },
       error: (err: unknown) => {
         console.error(err);
@@ -99,6 +99,6 @@ export class InventarioAjuste implements OnInit {
   }
 
   cancelar() {
-    this.router.navigate(['inventario']);
+    this.router.navigate(['/app/inventario']);
   }
 }

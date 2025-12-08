@@ -1,0 +1,71 @@
+<section class="catalogo-container">
+
+  <!-- BUSCADOR -->
+  <div class="search-box">
+    <input type="text"
+           placeholder="Buscar..."
+           [(ngModel)]="search"
+           (ngModelChange)="actualizarBusqueda($event)">
+    <span class="material-icons">search</span>
+  </div>
+
+  <div class="layout">
+
+    <!-- FILTROS -->
+    <aside class="filtros">
+
+      <h3>Filtros</h3>
+
+      <h4>Categoría</h4>
+      <ul>
+        <li (click)="seleccionarCategoria(null)"
+            [class.active]="!categoria">Todas</li>
+
+        <li *ngFor="let c of categorias$ | async"
+            (click)="seleccionarCategoria(c.id)"
+            [class.active]="categoria === c.id">
+          {{ c.nombre }}
+        </li>
+      </ul>
+
+      <h4>Precio</h4>
+      <input type="number" placeholder="Min"
+             [(ngModel)]="precioMin"
+             (ngModelChange)="actualizarPrecioMin($event)">
+      <input type="number" placeholder="Max"
+             [(ngModel)]="precioMax"
+             (ngModelChange)="actualizarPrecioMax($event)">
+
+    </aside>
+
+    <!-- PRODUCTOS (SOLO OBSERVABLES) -->
+    <div class="grid">
+      <div class="card" *ngFor="let p of productosFiltrados$ | async">
+
+        <img [src]="p.imagenUrl || 'assets/no-image.png'" alt="producto">
+
+        <h3>{{ p.nombre }}</h3>
+        <p class="desc">{{ p.descripcion }}</p>
+
+        <div class="price">
+          S/ {{ p.precioVenta | number:'1.2-2' }}
+        </div>
+
+        <button 
+            class="btn-add"
+            (click)="isLogged ? agregar(p) : mostrarAlertaLogin()"
+        >
+          Añadir al carrito
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTÓN CARRITO -->
+  <button class="cart-btn" routerLink="carrito">
+    🛒 {{ cartCount }}
+  </button>
+
+</section>

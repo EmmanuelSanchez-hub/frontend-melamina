@@ -115,10 +115,10 @@ export class InventarioList implements OnInit {
   }
 
   irDetalle(id: number) {
-    this.router.navigate(['inventario/detalle', id]);
+    this.router.navigate(['/app/inventario/detalle', id]);
   }
 
   irAjuste(id: number) {
-    this.router.navigate(['inventario/ajuste', id]);
+    this.router.navigate(['/app/inventario/ajuste', id]);
   }
 }

@@ -1,0 +1,54 @@
+<section class="carrito-container" *ngIf="items.length > 0; else noItems">
+
+  <h2>Carrito de compras</h2>
+
+  <table class="carrito-table">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Subtotal</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td class="prod-info">
+          <img [src]="item.imagenUrl" />
+          <span>{{ item.nombre }}</span>
+        </td>
+
+        <td>S/ {{ item.precioVenta }}</td>
+
+        <td>
+          <input type="number" min="1" [value]="item.cantidad"
+                 (input)="actualizarCantidad(item.id, $event)">
+        </td>
+
+        <td>S/ {{ item.precioVenta * item.cantidad }}</td>
+
+        <td>
+          <button class="btn-delete" (click)="eliminar(item.id)">✕</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="total-box">
+    <span>Total:</span>
+    <strong>S/ {{ total | number:'1.2-2' }}</strong>
+  </div>
+
+  <button class="btn-clear" (click)="limpiar()">Vaciar carrito</button>
+
+</section>
+
+<ng-template #noItems>
+  <div class="empty">
+    <h3>Tu carrito está vacío</h3>
+    <a routerLink="/catalogo">Volver al catálogo</a>
+  </div>
+</ng-template>
+

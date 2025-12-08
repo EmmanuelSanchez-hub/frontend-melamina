@@ -23,7 +23,7 @@ export class Login {
   login() {
     if (this.form.valid) {
       this.auth.login(this.form.value).subscribe({
-        next: () => this.router.navigate(['/dashboard']),
+        next: () => this.router.navigate(['/app/dashboard']),
         error: err => console.error(err)
       });
     }

@@ -93,6 +93,7 @@ export interface Producto {
   categoria: string;
   categoriaId: number | null;
   color: string;
+  imagenUrl: string;
   textura: string;
   espesor: number;
   largo: number;

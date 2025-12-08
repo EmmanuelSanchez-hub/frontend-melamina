@@ -1,0 +1,129 @@
+<!-- Agregar en index.html -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="page-wrapper">
+
+  <div class="auth-container" [class.active]="modoRegistro">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="info-panel">
+      <h1>CesarCore</h1>
+      <p>Gestión inteligente para tu negocio.</p>
+
+      <button (click)="toggleModo()">
+        {{ modoRegistro ? 'Ya tengo cuenta' : 'Crear una cuenta' }}
+      </button>
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="form-panel">
+
+      <!-- =====================
+           FORMULARIO LOGIN
+      ====================== -->
+      <form *ngIf="!modoRegistro"
+            [formGroup]="loginForm"
+            (ngSubmit)="login()"
+            class="form-content fade">
+
+        <h2>Iniciar sesión</h2>
+
+        <!-- USUARIO -->
+        <div class="input-group">
+          <span class="material-icons icon">person</span>
+          <input formControlName="username" type="text" placeholder="Nombre de usuario">
+        </div>
+        <p class="error" *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.hasError('required')">
+          El usuario es obligatorio.
+        </p>
+
+        <!-- CONTRASEÑA -->
+        <div class="input-group">
+          <span class="material-icons icon">lock</span>
+          <input formControlName="password" type="password" placeholder="Contraseña">
+        </div>
+        <p class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">
+          La contraseña es obligatoria.
+        </p>
+
+        <button type="submit">Ingresar</button>
+      </form>
+
+      <!-- =====================
+           FORMULARIO REGISTRO
+      ====================== -->
+      <form *ngIf="modoRegistro"
+            [formGroup]="registroForm"
+            (ngSubmit)="registrar()"
+            class="form-content fade">
+
+        <h2>Crear cuenta</h2>
+
+        <!-- USERNAME -->
+        <div class="input-group">
+          <span class="material-icons icon">person</span>
+          <input formControlName="username" type="text" placeholder="Usuario">
+        </div>
+        <p class="error" *ngIf="registroForm.get('username')?.touched && registroForm.get('username')?.hasError('required')">
+          El usuario es obligatorio.
+        </p>
+        <p class="error" *ngIf="registroForm.get('username')?.touched && registroForm.get('username')?.hasError('minlength')">
+          Mínimo 3 caracteres.
+        </p>
+
+        <!-- EMAIL -->
+        <div class="input-group">
+          <span class="material-icons icon">mail</span>
+          <input formControlName="email" type="email" placeholder="Correo electrónico">
+        </div>
+        <p class="error" *ngIf="registroForm.get('email')?.touched && registroForm.get('email')?.hasError('required')">
+          El correo es obligatorio.
+        </p>
+        <p class="error" *ngIf="registroForm.get('email')?.touched && registroForm.get('email')?.hasError('email')">
+          Ingresa un correo válido.
+        </p>
+
+        <!-- PASSWORD -->
+        <div class="input-group">
+          <span class="material-icons icon">lock</span>
+          <input formControlName="password" type="password" placeholder="Contraseña">
+        </div>
+        <p class="error" *ngIf="registroForm.get('password')?.touched && registroForm.get('password')?.hasError('required')">
+          La contraseña es obligatoria.
+        </p>
+        <p class="error" *ngIf="registroForm.get('password')?.touched && registroForm.get('password')?.hasError('minlength')">
+          Debe tener mínimo 6 caracteres.
+        </p>
+
+        <!-- NOMBRES -->
+        <div class="input-group">
+          <span class="material-icons icon">badge</span>
+          <input formControlName="nombres" type="text" placeholder="Nombres">
+        </div>
+        <p class="error" *ngIf="registroForm.get('nombres')?.touched && registroForm.get('nombres')?.hasError('required')">
+          Los nombres son obligatorios.
+        </p>
+
+        <!-- APELLIDOS -->
+        <div class="input-group">
+          <span class="material-icons icon">account_box</span>
+          <input formControlName="apellidos" type="text" placeholder="Apellidos">
+        </div>
+        <p class="error" *ngIf="registroForm.get('apellidos')?.touched && registroForm.get('apellidos')?.hasError('required')">
+          Los apellidos son obligatorios.
+        </p>
+
+        <!-- TELÉFONO -->
+        <div class="input-group">
+          <span class="material-icons icon">phone</span>
+          <input formControlName="telefono" type="text" placeholder="Teléfono (opcional)">
+        </div>
+        <p class="error" *ngIf="registroForm.get('telefono')?.touched && registroForm.get('telefono')?.hasError('pattern')">
+          Solo se permiten números.
+        </p>
+
+        <button type="submit">Registrarme</button>
+      </form>
+    </div>
+  </div>
+</div>

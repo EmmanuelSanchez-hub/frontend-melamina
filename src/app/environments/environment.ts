@@ -1,3 +1,5 @@
 export const environment = {
-  apiBaseUrl: 'https://backend-melamina.onrender.com/api',
+  //   https://backend-melamina.onrender.com/api (dominio para despliegue)
+  //   http://localhost:8080/api (dominio para desarrollo)
+  apiBaseUrl: 'http://localhost:8080/api',
 };

@@ -1,0 +1,145 @@
+$bg-dark: #0d1f2e;
+$bg-dark-2: #102739;
+
+$accent-1: #00c2e8;
+$accent-2: #48e0ff;
+
+$text: #eaf3f8;
+$text-dim: rgba(234, 243, 248, 0.75);
+
+$glass-bg: rgba(255, 255, 255, 0.04);
+$glass-border: rgba(255, 255, 255, 0.08);
+
+$radius: 18px;
+$bp-mobile: 768px;
+
+/* ============================================================
+   FOOTER LANDING
+   ============================================================ */
+
+.landing-footer {
+  width: 100%;
+  padding: 12px 18px 8px;
+  margin-top: 14px;
+  background: $glass-bg;
+  border-top: 1px solid $glass-border;
+  backdrop-filter: blur(12px);
+  border-radius: $radius $radius 0 0;
+  color: $text;
+  font-family: "Inter", sans-serif;
+
+  @media (max-width: 1024px) {
+    padding: 10px 16px 8px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 12px 6px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 8px 10px 6px;
+  }
+
+  /* CONTENEDOR PRINCIPAL */
+  .footer-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
+  }
+
+  /* MARCA */
+  .footer-brand {
+    max-width: 180px;
+
+    h3 {
+      font-size: 1.05rem;
+      margin-bottom: 3px;
+    }
+
+    p {
+      font-size: 0.75rem;
+      line-height: 1.25;
+    }
+  }
+
+  /* CONTACTO */
+  .footer-contact {
+    max-width: 180px;
+
+    h4 {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: 0.75rem;
+      margin-bottom: 6px;
+    }
+
+    .btn {
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      border-radius: 999px;
+
+      @media (max-width: 480px) {
+        padding: 3px 8px;
+        font-size: 0.68rem;
+      }
+    }
+  }
+
+  /* SOCIAL */
+  .footer-social {
+    max-width: 180px;
+
+    h4 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 10px;
+
+      @media (max-width: 480px) {
+        gap: 6px;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 24px;
+        padding: 5px;
+
+        img {
+          width: 35px;
+          height: 35px;
+        }
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  /* COPYRIGHT */
+  .footer-copy {
+    margin-top: 10px;
+    font-size: 0.65rem;
+    opacity: 0.55;
+
+    @media (max-width: 480px) {
+      font-size: 0.6rem;
+      margin-top: 8px;
+    }
+  }
+}

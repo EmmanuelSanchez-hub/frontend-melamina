@@ -127,13 +127,13 @@ export class ProveedorForm {
 
     if (this.editMode) {
       this.proveedorService.update(this.proveedorId, data).subscribe({
-        next: () => this.router.navigate(['/proveedores']),
+        next: () => this.router.navigate(['/app/proveedores']),
         error: err => console.error(err)
       });
 
     } else {
       this.proveedorService.create(data).subscribe({
-        next: () => this.router.navigate(['/proveedores']),
+        next: () => this.router.navigate(['/app/proveedores']),
         error: err => console.error(err)
       });
     }

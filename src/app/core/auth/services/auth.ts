@@ -36,6 +36,9 @@ export class Auth {
     return user.rol || '';
   }
 
+  registroPublico(data: any) {
+    return this.http.post(`${this.baseUrl}/auth/registro-publico`, data);
+  }
 
   logout(): void {
     localStorage.removeItem('token');

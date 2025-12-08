@@ -1,0 +1,118 @@
+.catalogo-container {
+  padding: 30px;
+  color: white;
+
+  .search-box {
+    position: relative;
+    margin-bottom: 20px;
+
+    input {
+      width: 100%;
+      padding: 12px 40px 12px 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+    }
+
+    span {
+      position: absolute;
+      right: 12px;
+      top: 10px;
+      color: #ccc;
+    }
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 25px;
+  }
+
+  .filtros {
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 12px;
+
+    h3 { margin-bottom: 10px; }
+    h4 { margin-top: 15px; }
+
+    ul { padding: 0; list-style: none; }
+
+    li {
+      padding: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 4px;
+      transition: .2s;
+
+      &:hover { background: rgba(255,255,255,0.15); }
+
+      &.active { background: #00c2e8; }
+    }
+
+    input {
+      width: 90%;
+      margin-top: 5px;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      transition: .3s;
+      backdrop-filter: blur(6px);
+
+      &:hover { transform: translateY(-4px); }
+
+      img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .price {
+        margin: 10px 0;
+        font-size: 20px;
+        color: #00c2e8;
+      }
+
+      .btn-add {
+        width: 100%;
+        padding: 10px;
+        background: #00c2e8;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        color: white;
+      }
+    }
+  }
+
+  .cart-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    padding: 12px 20px;
+    background: #00c2e8;
+    color: white;
+    border-radius: 30px;
+    font-size: 16px;
+    border: none;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    cursor: pointer;
+  }
+}

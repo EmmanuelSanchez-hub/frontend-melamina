@@ -5,7 +5,7 @@
     <h2>Gestión de Clientes</h2>
     <button 
       class="btn-primary" 
-      routerLink="/clientes/nuevo"
+      routerLink="/app/clientes/nuevo"
       *ngIf="api.can('clientes_write')">
       <span class="material-icons">add</span>
       Agregar Cliente
@@ -55,7 +55,7 @@
               </span>
             </td>
             <td class="acciones" *ngIf="api.can('clientes_write')">
-              <button class="icon edit" [routerLink]="['/clientes/editar', c.id]">
+              <button class="icon edit" [routerLink]="['/app/clientes/editar', c.id]">
                 <span class="material-icons">edit</span>
               </button>
 

@@ -3,7 +3,7 @@
   <div class="header">
     <h2>Gestión de Productos</h2>
 
-    <button class="btn-primary" routerLink="/products/nuevo"  *ngIf="api.can('productos_write')">
+    <button class="btn-primary" routerLink="/app/products/nuevo"  *ngIf="api.can('productos_write')">
       <span class="material-icons">add</span>
       Agregar Producto
     </button>
@@ -32,7 +32,6 @@
             <td>{{ p.categoria }}</td>
             <td>S/ {{ p.precioVenta | number:'1.2-2' }}</td>
             <td>{{ p.stockActual }}</td>
-
             <td>
               <span class="badge"
                     [ngClass]="p.estadoStock.toLowerCase()">
@@ -41,7 +40,7 @@
             </td>
 
             <td class="acciones" *ngIf="api.can('productos_write')">
-              <button class="icon edit" [routerLink]="['/products/editar', p.codigo]">
+              <button class="icon edit" [routerLink]="['/app/products/editar', p.codigo]">
                 <span class="material-icons">edit</span>
               </button>
 

@@ -1,0 +1,209 @@
+// ==============================
+// VARIABLES
+// ==============================
+$bg1: #0d1f2e;
+$bg2: #152f46;
+
+$primary: #00c5e7;
+$primary-hover: #00abd0;
+
+$text: #eef6fb;
+$text-muted: rgba(238, 246, 251, 0.55);
+
+$glass: rgba(255, 255, 255, 0.05);
+$glass-border: rgba(255, 255, 255, 0.10);
+
+$radius: 18px;
+
+// ==============================
+// WRAPPER (CENTRADO)
+// ==============================
+.page-wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// ==============================
+// TARJETA PRINCIPAL
+// ==============================
+.auth-container {
+  width: 90%;
+  max-width: 1150px;
+  min-height: 620px;
+  color: #fff;
+
+  display: flex;
+  overflow: hidden;
+  border-radius: 28px;
+
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+
+  transition: 0.35s ease;
+
+  &.active {
+    transform: scale(1.01);
+  }
+}
+
+// ==============================
+// PANEL IZQUIERDO
+// ==============================
+.info-panel {
+  width: 40%;
+  padding: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background: linear-gradient(160deg, #0f2333, #11354d);
+
+  h1 {
+    font-size: 46px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    opacity: 0.8;
+  }
+
+  button {
+    width: 230px;
+    padding: 14px;
+    background: $primary;
+    border: none;
+    border-radius: $radius;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.25s ease;
+
+    &:hover {
+      background: $primary-hover;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// ==============================
+// PANEL DERECHO
+// ==============================
+.form-panel {
+  width: 60%;
+  padding: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  .form-content {
+    width: 100%;
+    max-width: 420px;
+
+    animation: fade 0.4s ease;
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    // INPUT GROUP
+    .input-group {
+      position: relative;
+      margin-bottom: 18px;
+
+      .icon {
+        position: absolute;
+        top: 50%;
+        left: 16px;
+        transform: translateY(-50%);
+        opacity: 0.7;
+
+        svg {
+          width: 20px;
+          fill: $text;
+        }
+      }
+
+      input {
+        width: 100%;
+        padding: 14px 16px 14px 48px;
+
+        background: rgba(255,255,255,0.10);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: $radius;
+
+        color: $text;
+        font-size: 15px;
+
+        transition: 0.25s ease;
+
+        &:focus {
+          border-color: $primary;
+          background: rgba(255,255,255,0.18);
+          outline: none;
+          box-shadow: 0 0 0 3px rgba($primary, 0.25);
+        }
+
+        &::placeholder {
+          color: $text-muted;
+        }
+      }
+    }
+
+    button {
+      margin-top: 5px;
+      width: 100%;
+      padding: 14px;
+
+      background: $primary;
+      border: none;
+      border-radius: $radius;
+      color: #fff;
+
+      font-size: 17px;
+      font-weight: 600;
+
+      cursor: pointer;
+      transition: 0.25s ease;
+
+      &:hover {
+        background: $primary-hover;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// ANIMACIÓN
+@keyframes fade {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// RESPONSIVE
+@media (max-width: 950px) {
+  .auth-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .info-panel, .form-panel {
+    width: 100%;
+    text-align: center;
+    padding: 40px;
+  }
+}

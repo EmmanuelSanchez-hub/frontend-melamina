@@ -1,0 +1,80 @@
+.carrito-container {
+  padding: 30px;
+  color: white;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .carrito-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    tbody tr {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+    }
+
+    .prod-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+    }
+
+    input {
+      width: 60px;
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      text-align: center;
+    }
+  }
+
+  .total-box {
+    margin-top: 20px;
+    font-size: 22px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .btn-clear {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    background: #ff5252;
+    color: white;
+    cursor: pointer;
+  }
+
+  .btn-delete {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #ff6b6b;
+    cursor: pointer;
+  }
+}
+
+.empty {
+  padding: 40px;
+  text-align: center;
+  color: #eee;
+
+  a {
+    color: #00c2e8;
+  }
+}

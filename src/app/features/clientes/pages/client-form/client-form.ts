@@ -68,7 +68,6 @@ export class ClientForm {
 
   direccion: new FormControl<string>('', { nonNullable: true }),
 
-  // 👉 Aquí el valor por defecto
   ciudad: new FormControl<string>('Chimbote', { nonNullable: true }),
 
   activo: new FormControl<boolean>(true, { nonNullable: true })
@@ -165,12 +164,12 @@ export class ClientForm {
 
     if (this.editMode) {
       this.clienteService.actualizar(this.clienteId, data).subscribe({
-        next: () => this.router.navigate(['/clientes']),
+        next: () => this.router.navigate(['/app/clientes']),
         error: err => console.error(err)
       });
     } else {
       this.clienteService.crear(data).subscribe({
-        next: () => this.router.navigate(['/clientes']),
+        next: () => this.router.navigate(['/app/clientes']),
         error: err => console.error(err)
       });
     }

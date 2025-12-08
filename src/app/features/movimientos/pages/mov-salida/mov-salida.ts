@@ -198,7 +198,7 @@ export class MovSalida implements OnInit {
     forkJoin(
       detalle.map(item => this.movService.registrarSalida(item))
     ).subscribe({
-      next: () => this.router.navigate(['/movimientos']),
+      next: () => this.router.navigate(['/app/movimientos']),
       error: () => alert('Error al registrar la venta.')
     });
 

@@ -5,7 +5,7 @@
 
     <button 
       class="btn-primary" 
-      routerLink="/proveedores/nuevo"
+      routerLink="/app/proveedores/nuevo"
       *ngIf="api.can('proveedores_write')">
       <span class="material-icons">add</span>
       Agregar Proveedor
@@ -58,7 +58,7 @@
               </td>
 
               <td class="acciones" *ngIf="api.can('proveedores_write')">
-                <button class="icon edit" [routerLink]="['/proveedores/editar', p.id]">
+                <button class="icon edit" [routerLink]="['/app/proveedores/editar', p.id]">
                   <span class="material-icons">edit</span>
                 </button>
 

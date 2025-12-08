@@ -74,10 +74,10 @@ export class ProductForm implements OnInit {
       nonNullable: true,
       validators: [Validators.required, Validators.min(0.01)],
     }),
-
+    imagenUrl: new FormControl<string>('', { nonNullable: true }),
     stockMinimo: new FormControl<number>(5, { nonNullable: true }),
     activo: new FormControl<boolean>(true, { nonNullable: true }),
-  });   // ← ← ← ESTA LLAVE FALTABA
+  }); 
 
 
   constructor(
@@ -131,12 +131,12 @@ export class ProductForm implements OnInit {
 
     if (this.editMode) {
       this.productService.update(this.productoId, data).subscribe({
-        next: () => this.router.navigate(['/products']),
+        next: () => this.router.navigate(['/app/products']),
         error: (err) => console.error(err),
       });
     } else {
       this.productService.create(data).subscribe({
-        next: () => this.router.navigate(['/products']),
+        next: () => this.router.navigate(['/app/products']),
         error: (err) => console.error(err),
       });
     }

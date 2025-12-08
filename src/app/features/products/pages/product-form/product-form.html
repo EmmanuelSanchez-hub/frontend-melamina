@@ -138,6 +138,12 @@
             <input type="number" id="stockMinimo" formControlName="stockMinimo" />
         </div>
 
+        <!-- IMAGEN URL -->
+        <div class="form-group">
+            <label for="imagenUrl">Imagen Url</label>
+            <input type="text" id="imagenUrl" formControlName="imagenUrl" />
+        </div>
+
         <!-- ACTIVO (solo edición) -->
         <div class="form-group" *ngIf="editMode">
             <label for="activo">Estado</label>
@@ -152,10 +158,9 @@
             <button class="btn-save" type="submit" [disabled]="form.invalid">
                 {{ editMode ? 'Actualizar' : 'Guardar' }}
             </button>
-            <button class="btn-cancel" routerLink="/products" type="button">
+            <button class="btn-cancel" routerLink="/app/products" type="button">
                 Cancelar
             </button>
         </div>
-
     </form>
 </section>

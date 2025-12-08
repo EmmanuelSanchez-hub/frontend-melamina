@@ -1,0 +1,61 @@
+<header class="landing-header glass">
+
+  <!-- LOGO -->
+  <div class="brand">
+      <span class="logo-square"></span>
+      <span class="brand-name">CesarCore</span>
+  </div>
+
+  <!-- NAV DESKTOP -->
+  <nav class="nav-links">
+      <a href="#clientes">Clientes</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#empleados">Empleados</a>
+      <a routerLink="/catalogo">Catalogo</a>
+      <a routerLink="/contactar">Contacto</a>
+
+      <!-- LOGIN O PERFIL -->
+      <ng-container *ngIf="!isLoggedIn; else perfil">
+        <button class="btn primary small" routerLink="/registro-publico">Iniciar sesión</button>
+      </ng-container>
+
+      <!-- PERFIL SI ESTÁ LOGUEADO -->
+      <ng-template #perfil>
+        <div class="user-box" (click)="userMenuOpen = !userMenuOpen">
+          <div class="avatar">{{ username?.charAt(0)?.toUpperCase() }}</div>
+        </div>
+
+        <div class="user-menu" *ngIf="userMenuOpen">
+          <p class="user-name">{{ username }}</p>
+          <a routerLink="/landing">Panel</a>
+          <button (click)="logout()">Cerrar sesión</button>
+        </div>
+      </ng-template>
+  </nav>
+
+  <!-- HAMBURGER MENU -->
+  <div class="menu-toggle" (click)="menuOpen = !menuOpen">☰</div>
+
+</header>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" *ngIf="menuOpen">
+
+  <a href="#clientes">Clientes</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#empleados">Empleados</a>
+  <a routerLink="/catalogo">Catalogo</a>
+  <a routerLink="/contactar">Contacto</a>
+  
+
+  <ng-container *ngIf="!isLoggedIn; else perfilMovil">
+    <button class="btn primary small" routerLink="/registro-publico">Iniciar sesión</button>
+  </ng-container>
+
+  <ng-template #perfilMovil>
+    <p class="user-name">{{ username }}</p>
+    <a routerLink="/landing">Panel</a>
+    <button class="btn secondary small" (click)="logout()">Cerrar sesión</button>
+  </ng-template>
+
+</nav>

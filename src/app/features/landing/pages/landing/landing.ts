@@ -50,7 +50,7 @@ export class Landing implements OnInit, OnDestroy {
   autoSlide() {
     this.intervalId = setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.servicios.length;
-      this.transform = `translateX(-${this.currentIndex * 100}%)`;  // ← SE ACTUALIZA
+      this.transform = `translateX(-${this.currentIndex * 100}%)`;
     }, 3500);
   }
 

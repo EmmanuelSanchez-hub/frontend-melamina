@@ -12,7 +12,7 @@
   <nav class="nav-links">
 
     <!-- DASHBOARD (TODOS LOS ROLES) -->
-    <div class="menu-item" routerLink="/dashboard" routerLinkActive="active">
+    <div class="menu-item" routerLink="/app/dashboard" routerLinkActive="active">
       <button class="icon-btn">
         <span class="material-icons">dashboard</span>
       </button>
@@ -40,7 +40,7 @@
         <!-- Productos (TODOS PUEDEN LEER) -->
         <div 
           class="sub-item" 
-          routerLink="/products" 
+          routerLink="/app/products" 
           routerLinkActive="active"
           *ngIf="api.can('productos_read')">
           <button class="icon-btn">
@@ -52,7 +52,7 @@
         <!-- Proveedores (ADMIN + ALMACENERO) -->
         <div 
           class="sub-item" 
-          routerLink="/proveedores" 
+          routerLink="/app/proveedores" 
           routerLinkActive="active"
           *ngIf="api.can('proveedores_read')">
           <button class="icon-btn">
@@ -84,7 +84,7 @@
         <!-- Clientes (ADMIN + VENDEDOR) -->
         <div 
           class="sub-item" 
-          routerLink="/clientes" 
+          routerLink="/app/clientes" 
           routerLinkActive="active"
           *ngIf="api.can('clientes_read')">
           <button class="icon-btn">
@@ -96,7 +96,7 @@
         <!-- Usuarios (SOLO ADMIN) -->
         <div 
           class="sub-item" 
-          routerLink="/usuarios" 
+          routerLink="/app/usuarios" 
           routerLinkActive="active"
           *ngIf="api.can('usuarios_read')">
           <button class="icon-btn">
@@ -123,7 +123,7 @@
       <div class="drop-menu">
         <div 
           class="sub-item" 
-          routerLink="/inventario" 
+          routerLink="/app/inventario" 
           routerLinkActive="active"
           *ngIf="api.can('inventario_read')">
           <button class="icon-btn">
@@ -133,7 +133,7 @@
         </div>
         <div 
           class="sub-item" 
-          routerLink="/movimientos" 
+          routerLink="/app/movimientos" 
           routerLinkActive="active"
           *ngIf="api.can('ventas_read') || api.can('compras_read') || api.can('ajustes_read')">
           <button class="icon-btn">

@@ -4,18 +4,28 @@ import { authGuard } from './core/auth/guards/auth-guard';
 import { MainLayout } from './core/layout/main-layout/main-layout';
 import { Dashboard } from './features/dashboard/pages/dashboard/dashboard';
 import { ErrorConexion } from './core/pages/error-conexion/error-conexion';
-import { Contactar } from './features/landing/pages/contactar/contactar';
+import { PublicLayout } from './features/public/layout/public-layout/public-layout';
+import { Registro } from './features/public/pages/registro/registro';
 
 export const routes: Routes = [
   // ===================== RUTAS PÚBLICAS =====================
-  { path: '', loadComponent: () => import('./features/landing/pages/landing/landing').then(m => m.Landing) },
-  { path: 'contactar', component: Contactar },
+  { path: '',
+    component: PublicLayout,
+    children:[
+      { path: '', loadComponent: () => import('./features/landing/pages/landing/landing').then(m => m.Landing) },
+      { path: 'registro-publico',component: Registro},
+      { path: 'contactar', loadComponent: () => import('./features/landing/pages/contactar/contactar').then(m => m.Contactar) },
+      { path: 'catalogo', loadChildren: () => import('./features/public/catalogo/catalogo-module').then(m => m.CatalogoModule)}
+    ]
+  },
+  
+  
   { path: 'login', component: Login },
   { path: 'error-conexion', component: ErrorConexion },
 
   // Rutas privadas envueltas por el MainLayout
   {
-    path: '',
+    path: 'app',
     component: MainLayout,
     canActivateChild: [authGuard],
     children: [
