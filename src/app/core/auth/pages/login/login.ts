@@ -23,7 +23,14 @@ export class Login {
   login() {
     if (this.form.valid) {
       this.auth.login(this.form.value).subscribe({
-        next: () => this.router.navigate(['/app/dashboard']),
+        next: (res: any) => {
+          const role = res?.user?.role;
+          if (role === 'ROLE_CLIENTE') {
+          this.router.navigate(['/landing']);
+        } else {
+          this.router.navigate(['/app/dashboard']);
+        }
+        },
         error: err => console.error(err)
       });
     }
