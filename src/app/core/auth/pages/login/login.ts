@@ -23,13 +23,14 @@ export class Login {
   login() {
     if (this.form.valid) {
       this.auth.login(this.form.value).subscribe({
-        next: (res: any) => {
-          const role = res?.user?.role;
+        next: () => {
+          const user = JSON.parse(localStorage.getItem('user') || '{}');
+          const role = user?.rol;
           if (role === 'ROLE_CLIENTE') {
-          this.router.navigate(['/landing']);
-        } else {
-          this.router.navigate(['/app/dashboard']);
-        }
+            this.router.navigate(['/inicio']);
+          } else {
+            this.router.navigate(['/app/dashboard']);
+          }
         },
         error: err => console.error(err)
       });
